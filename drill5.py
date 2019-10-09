@@ -5,11 +5,11 @@ KPU_WIDTH, KPU_HEIGHT = 1280, 1024
 
 def handle_events():
    global running
-   global x, y
+   global x, y, t
    global move
    global mouse_x, mouse_y
    global pre_x, pre_y
-
+   global ch_dir
    events = get_events()
    for event in events:
        if event.type == SDL_QUIT:
@@ -21,6 +21,11 @@ def handle_events():
            mouse_x, mouse_y = event.x, KPU_HEIGHT - 1 - event.y
            pre_x = ch_x
            pre_y = ch_y
+           t = 0
+           if mouse_x < pre_x:
+               ch_dir = False
+           else:
+               ch_dir = True
        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
            running = False
 
@@ -53,13 +58,13 @@ def update_character_position():
     global ch_x, ch_y
     global t
     if move == True:
-            t = t + 0.01
+            t = t + 0.005
             ch_x = (1 - t) * pre_x + t * mouse_x
             ch_y = (1 - t) * pre_y + t * mouse_y
             if t > 1:
                 move = False
                 t = 0
-                
+
 
 
 
