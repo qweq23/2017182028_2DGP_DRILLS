@@ -43,12 +43,6 @@ def draw():
             character.clip_draw(100, 100 * 3, 100, 100, x, 90)
 
 
-
-
-
-
-
-
 open_canvas()
 grass = load_image('grass.png')
 character = load_image('animation_sheet.png')
