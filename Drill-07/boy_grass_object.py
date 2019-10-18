@@ -39,7 +39,7 @@ class Ball:
             self.image = load_image('ball21x21.png')
         else:
             self.image = load_image('ball41x41.png')
-        self.speed = random.randint(5, 10)
+        self.speed = random.randint(3, 10)
 
     def update(self):
         self.y -= self.speed
@@ -59,6 +59,7 @@ def handle_events():
 # initialization code
 open_canvas()
 team = [Boy() for i in range(11)]
+balls = [Ball() for i in range(20)]
 grass = Grass()
 
 running = True
@@ -66,13 +67,23 @@ running = True
 # game main loop code
 while running:
     handle_events()
+
     for boy in team:
         boy.update()
+
+    for s_ball in balls:
+        if s_ball.y > 60:
+            s_ball.update()
+        else:
+            s_ball.y = 60
+
 
     clear_canvas()
     grass.draw()
     for boy in team:
         boy.draw()
+    for s_ball in balls:
+        s_ball.draw()
     update_canvas()
 
     delay(0.05)
