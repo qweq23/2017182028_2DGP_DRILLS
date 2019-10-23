@@ -22,17 +22,17 @@ def exit():
 
 def update():
     global frame
-    #frame = (frame + 1) % 200
+    frame = (frame + 1) % 200
     handle_events()
 
 
 def draw():
     global image
     clear_canvas()
-    # main_state.boy.draw()
-    # main_state.grass.draw()
-    #if frame < 100:
-    image.draw(400, 300, 100, 100)
+    main_state.boy.draw()
+    main_state.grass.draw()
+    if frame < 100:
+        image.draw(400, 300, 100, 100)
     update_canvas()
 
 
