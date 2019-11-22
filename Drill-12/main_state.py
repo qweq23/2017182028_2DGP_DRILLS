@@ -11,6 +11,8 @@ from boy import Boy
 from ground import Ground
 from zombie import Zombie
 from ball import BigBall
+from ball import SmallBall
+
 name = "MainState"
 
 boy = None
@@ -36,12 +38,11 @@ def get_boy():
     return boy
 
 
-def get_balls():
+def get_big_balls():
     return big_balls
 
-def add_smallball(small_ball):
-    global small_balls
-    small_balls.append(small_ball)
+def get_small_balls():
+    return small_balls
 
 
 def enter():
@@ -56,6 +57,11 @@ def enter():
     global big_balls
     big_balls = [BigBall() for i in range(5)]
     game_world.add_objects(big_balls, 1)
+
+    global small_balls
+    small_balls = [SmallBall() for i in range(5)]
+    game_world.add_objects(small_balls, 1)
+
 
     ground = Ground()
     game_world.add_object(ground, 0)
