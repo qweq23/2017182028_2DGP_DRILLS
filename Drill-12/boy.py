@@ -1,9 +1,8 @@
 import game_framework
 from pico2d import *
 
-import game_world
 import main_state
-from ball import SmallBall
+from boy_attack import BoyAttack
 
 # Boy Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
@@ -121,6 +120,10 @@ class Boy:
 
         self.hp = 1000
 
+    def attack(self):
+        attack = BoyAttack(self.x, self.y, self.dir)
+        main_state.add_boy_attack(attack)
+
     def get_bb(self):
         return self.x - 15, self.y - 40, self.x + 15, self.y + 40
 
@@ -145,7 +148,6 @@ class Boy:
     def draw(self):
         self.cur_state.draw(self)
         self.font.draw(self.x - 60, self.y + 50, '(Time: %3.2f)' % get_time(), (255, 255, 0))
-        self.font.draw(self.x - 60, self.y + 65, '(HP: %d)' % self.hp, (255, 255, 0))
 
         #fill here
         draw_rectangle(*self.get_bb())

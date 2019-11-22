@@ -12,6 +12,7 @@ from ground import Ground
 from zombie import Zombie
 from ball import BigBall
 from ball import SmallBall
+from boy_attack import BoyAttack
 
 name = "MainState"
 
@@ -19,6 +20,7 @@ boy = None
 zombie = None
 big_balls = []
 small_balls = []
+boy_attacks = []
 
 
 def collide(a, b):
@@ -41,9 +43,14 @@ def get_boy():
 def get_big_balls():
     return big_balls
 
+
 def get_small_balls():
     return small_balls
 
+def add_boy_attack(boy_attack):
+    global boy_attacks
+    boy_attacks.append(boy_attack)
+    game_world.add_object(boy_attack, 1)
 
 def enter():
     global boy
@@ -93,7 +100,10 @@ def update():
         game_object.update()
 
     if collide(boy, zombie):
-        boy.add_hp(-5)
+        if len(big_balls) == 0 and len(small_balls) == 0:
+            game_framework.change_state(end_state)
+        else:
+            game_world.remove_object(zombie)
 
     for ball in big_balls:
         if collide(zombie, ball):
@@ -108,11 +118,13 @@ def update():
                 game_world.remove_object(ball)
                 zombie.add_hp(50)
 
-    if zombie.get_hp() < 0:
-        game_world.remove_object(zombie)
+    for boy_attack in boy_attacks:
+        if collide(zombie, boy_attack):
+            boy_attacks.remove(boy_attack)
+            game_world.remove_object(boy_attack)
+            zombie.add_hp(-100)
 
-    if boy.get_hp() < 0:
-        game_framework.change_state(end_state)
+
 
 
 
