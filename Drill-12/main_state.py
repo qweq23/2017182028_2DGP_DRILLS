@@ -92,7 +92,6 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
 
-    # 충돌체크
     if collide(boy, zombie):
         boy.add_hp(-5)
 
@@ -102,11 +101,12 @@ def update():
             game_world.remove_object(ball)
             zombie.add_hp(100)
 
-    for ball in small_balls:
-        if collide(zombie, ball):
-            small_balls.remove(ball)
-            game_world.remove_object(ball)
-            zombie.add_hp(50)
+    if len(big_balls) == 0:
+        for ball in small_balls:
+            if collide(zombie, ball):
+                small_balls.remove(ball)
+                game_world.remove_object(ball)
+                zombie.add_hp(50)
 
     if zombie.get_hp() < 0:
         game_world.remove_object(zombie)
