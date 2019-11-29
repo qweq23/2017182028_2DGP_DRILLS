@@ -31,9 +31,22 @@ def collide(a, b):
 
 
 def ranking_save():
-    file = open('record_data.json', 'w')
-    file.write(str(record))
-    file.close()
+    records = []
+    with open('record_data.json', 'r') as f:
+        data_str = f.read()
+        if len(data_str) == 0:
+            data_str = '[]'
+        data = json.loads(data_str)
+        records = data
+
+        records.append(record)
+
+    with open('record_data.json', 'w') as f:
+        data_str = json.dumps(records)
+        print(data_str)
+        f.write(data_str)
+
+
 
 
 def enter():
