@@ -40,10 +40,13 @@ def ranking_save():
         records = data
 
         records.append(record)
+        records.sort()
+        records.reverse()
+        if len(records) > 10:
+            records.pop()
 
     with open('record_data.json', 'w') as f:
         data_str = json.dumps(records)
-        print(data_str)
         f.write(data_str)
 
 
